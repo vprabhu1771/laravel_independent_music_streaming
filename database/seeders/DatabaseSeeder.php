@@ -24,7 +24,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Call the other seeder
-        $this->call(GenreSeeder::class);
-        $this->call(BrandSeeder::class);
+        $this->call([
+            GenreSeeder::class,
+            BrandSeeder::class,
+            SongSeeder::class
+        ]);
     }
 }
