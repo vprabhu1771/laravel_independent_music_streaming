@@ -11,6 +11,7 @@ Route::get('/user', function (Request $request) {
 use App\Http\Controllers\api\v2\GenreController;
 use App\Http\Controllers\api\v2\BrandController;
 use App\Http\Controllers\api\v2\SongController;
+use App\Http\Controllers\api\v2\AuthController;
 
 Route::get('/genres', [GenreController::class,'index']);
 
@@ -18,3 +19,15 @@ Route::get('/genres', [GenreController::class,'index']);
 Route::get('/brands', [BrandController::class,'index']);
 
 Route::get('/songs', [SongController::class,'index']);
+
+Route::post('/login',[AuthController::class,'login']);
+Route::post('/register',[AuthController::class,'register']);
+
+Route::middleware(['auth:sanctum'])->group(function () {
+  
+    Route::get('/user',[AuthController::class, 'getUser']);
+
+    Route::post('/logout', [AuthController::class, 'logout']);
+
+    Route::put('/user/update-profile', [AuthController::class, 'update_profile']);
+});
