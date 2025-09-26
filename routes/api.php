@@ -12,6 +12,7 @@ use App\Http\Controllers\api\v2\GenreController;
 use App\Http\Controllers\api\v2\BrandController;
 use App\Http\Controllers\api\v2\SongController;
 use App\Http\Controllers\api\v2\AuthController;
+use App\Http\Controllers\api\v2\PlaylistController;
 
 Route::get('/genres', [GenreController::class,'index']);
 
@@ -30,4 +31,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
     Route::put('/user/update-profile', [AuthController::class, 'update_profile']);
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+
+    Route::post('playlist/add', [PlaylistController::class, 'addToPlaylist']);
+    
+    Route::delete('playlist/remove', [PlaylistController::class, 'removeFromPlaylist']);
+    
+    Route::get('playlist', [PlaylistController::class, 'getPlaylist']);
+    
 });
